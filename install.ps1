@@ -30,7 +30,7 @@ if (-not (Test-Path 'package.json')) {
 
 # ===== .claude 디렉토리 =====
 Write-Host "▶ Copying .claude/ (기존 파일 보존)"
-New-Item -ItemType Directory -Force -Path '.claude/hooks','.claude/agents','.claude/skills' | Out-Null
+New-Item -ItemType Directory -Force -Path '.claude/hooks','.claude/agents','.claude/skills','.claude/commands' | Out-Null
 
 # 훅 스크립트 복사 (기존 파일 보존)
 Get-ChildItem "$TEMPLATE_DIR/.claude/hooks/*.sh" -ErrorAction SilentlyContinue | ForEach-Object {
@@ -56,6 +56,12 @@ Get-ChildItem "$TEMPLATE_DIR/.claude/skills" -Directory -ErrorAction SilentlyCon
   } else {
     Write-Host "  ✓ 이미 존재: $dest (건너뜀)"
   }
+}
+
+# 슬래시 커맨드
+Get-ChildItem "$TEMPLATE_DIR/.claude/commands/*.md" -ErrorAction SilentlyContinue | ForEach-Object {
+  $dest = ".claude/commands/$($_.Name)"
+  if (-not (Test-Path $dest)) { Copy-Item $_.FullName $dest }
 }
 
 # ===== settings.json =====

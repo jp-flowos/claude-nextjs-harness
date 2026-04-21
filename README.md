@@ -25,6 +25,7 @@ PostToolUse Hook (ms) > pre-commit (s) > CI (min) > human review (h)
 | `.claude/hooks/pre-protect-bash.sh` | 파괴적 Bash 명령 차단 (rm -rf, --force, DROP TABLE) |
 | `.claude/agents/nextjs-reviewer.md` | RSC/Client 경계, Server Actions, 캐싱 리뷰어 |
 | `.claude/skills/new-api-route/SKILL.md` | API 라우트 스캐폴딩 패턴 |
+| `.claude/commands/fill-project-docs.md` | `/fill-project-docs` — 설치 직후 AGENTS/CLAUDE 자동 채우기 |
 
 ## 빠른 적용 (기존 프로젝트)
 
@@ -117,9 +118,11 @@ chmod +x .claude/hooks/*.sh
 ## 단계별 롤아웃 (권장)
 
 **1일차 (30분)** — 최소 효과 최대:
-1. `AGENTS.md` 생성
-2. `post-quality.sh` + 설정 활성화 (파일 저장 시 Biome+tsc 자동 피드백)
-3. Claude Code 재시작 → 아무 .ts 수정해보고 훅 발화 확인
+1. `install.sh` 또는 `install.ps1` 실행
+2. `bash .claude/hooks/doctor.sh` — 6/6 통과 확인
+3. Claude Code 재시작
+4. Claude Code에서 `/fill-project-docs` 실행 → 프로젝트 실제 내용으로 AGENTS/CLAUDE 채움
+5. 아무 .ts 수정해보고 Biome/tsc 훅 발화 확인
 
 **1주차**:
 4. `pre-protect-files.sh` + `pre-protect-bash.sh` 활성화

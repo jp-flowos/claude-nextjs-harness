@@ -31,10 +31,11 @@ fi
 
 # ====== .claude 복사 (기존 파일 보존) ======
 echo "▶ Copying .claude/ (preserves existing files)"
-mkdir -p .claude/hooks .claude/agents .claude/skills
+mkdir -p .claude/hooks .claude/agents .claude/skills .claude/commands
 cp -n "$TEMPLATE_DIR/.claude/hooks/"*.sh .claude/hooks/ 2>/dev/null || true
 cp -n "$TEMPLATE_DIR/.claude/agents/"*.md .claude/agents/ 2>/dev/null || true
 cp -rn "$TEMPLATE_DIR/.claude/skills/"* .claude/skills/ 2>/dev/null || true
+cp -n "$TEMPLATE_DIR/.claude/commands/"*.md .claude/commands/ 2>/dev/null || true
 
 # ====== settings.json 처리 ======
 if [ -f ".claude/settings.json" ]; then
